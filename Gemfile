@@ -59,6 +59,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem "database_cleaner"
   gem "rspec-rails"
+  gem 'bullet'
 end
 
 group :development do
@@ -70,7 +71,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  gem 'bullet'
 end
 
 group :test do
