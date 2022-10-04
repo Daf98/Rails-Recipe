@@ -1,0 +1,5 @@
+<tr>
+  <td><%= recipe_food.food.name %></td>
+  <td><%= recipe_food.quantity %><%= recipe_food.food.measurement_unit %></td>
+  <td><%= number_to_currency(recipe_food.food.price * recipe_food.quantity, unit: '$', precision: 0) %></td>
+</tr>
