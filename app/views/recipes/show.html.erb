@@ -1,6 +1,29 @@
 <% if can? :destroy, @recipe %>
 <%= link_to "Add food", new_food_path, class: "btn btn-secondary float-end" %>
 <% end %>
-<h3>Recipe #<%= @recipe.id %> by <%= @recipe.user.name %></h3>
-<p>Name: <%= @recipe.name %></p>
-<p>Description: <%= @recipe.description %></p>
+<%# Add public button %>
+<h3>Recipe #<%= @recipe.id %>
+<h4>Name: <%= @recipe.name %></h4>
+<h4>Description: <%= @recipe.description %></h4>
+<h4>Preparation time: <%= @recipe.preparation_time %> hours</h4>
+<h4>Cooking time: <%= @recipe.cooking_time %> hours</h4>
+<h4>Steps go here...</h4>
+<h4>Generate shopping list</h4>
+<h4>Add ingredient</h4>
+<table>
+  <tr>
+    <th>Food</th>
+    <th>Quantity</th>
+    <th>Value</th>
+    <th>Actions</th>
+   </tr>
+   <% RecipeFood.where(recipe_id: @recipe.id).each do | recipe_food | %>
+    <tr>
+   <th><%= recipe_food.food.name %></th>
+   <th><%= recipe_food.food.quantity %> <%= recipe_food.food.measurement_unit %></th>
+   <th>$<%= recipe_food.food.price %></th>
+   <th>Remove</th>
+   </tr>
+</table>
+
+<% end %>
