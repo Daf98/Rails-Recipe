@@ -4,6 +4,10 @@
 <div>Name: <%= recipe.name %> by <%= recipe.user.name %></div>
 <div>Description: <%= recipe.description %></div>
 <div>Public? <%= recipe.public %></div>
+<% RecipeFood.where(recipe: recipe).each do | recipe_food | %>
+<div>Total food items: <%= recipe_food.quantity %></div>
+<div>Total price: $<%= recipe_food.quantity * recipe_food.food.price %></div>
+<% end %>
 <% if can? :destroy, recipe %>
     <%= button_to "REMOVE", "/recipes/#{recipe.id}", method: :delete %>
 <% end %>
