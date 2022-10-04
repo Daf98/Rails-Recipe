@@ -1,8 +1,9 @@
 <h1>Recipes</h1>
 <% @recipes.each do |recipe| %>
 <a href="recipes/<%= recipe.id %>">Recipe #<%= recipe.id %></a>
-<div>Name: <%= recipe.name %></div>
+<div>Name: <%= recipe.name %> by <%= recipe.user.name %></div>
 <div>Description: <%= recipe.description %></div>
+<div>Public? <%= recipe.public %></div>
 <% if can? :destroy, recipe %>
     <%= button_to "REMOVE", "/recipes/#{recipe.id}", method: :delete %>
 <% end %>
