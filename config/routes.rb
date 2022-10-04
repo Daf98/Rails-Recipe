@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root 'foods#index'
   resources :recipes, only: [:index, :show, :destroy]
   resources :foods, only: [:index, :show, :destroy]
+  get '/general_shopping_list', to: 'shopping#index', as: 'general_shopping_list'
 end
