@@ -4,10 +4,6 @@ class PublicRecipesController < ApplicationController
       @recipes = Recipe.where(public: :true).order(created_at: :desc)
     end
   
-    def show
-      @recipe = Recipe.find(params[:id])
-    end
-  
     def destroy
       @recipe = Recipe.find(params[:id])
       @recipe.delete
