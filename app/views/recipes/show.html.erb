@@ -21,8 +21,11 @@
    <th><%= recipe_food.food.name %></th>
    <th><%= recipe_food.food.quantity %> <%= recipe_food.food.measurement_unit %></th>
    <th>$<%= recipe_food.food.price %></th>
+   <% if can? :destroy, @recipe %>
    <th><%= button_to 'Remove', recipe_food_path(recipe_food.id), method: :delete, class: "btn btn-danger btn-sm" %></th>
+   <% end %>
    </tr>
+   <% end %>
 </table>
 
-<% end %>
+
