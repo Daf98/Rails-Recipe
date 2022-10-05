@@ -1,69 +1,92 @@
 require 'rails_helper'
 
-describe 'Get /foods' do
-  it 'will present foods page' do
-    user = FactoryBot.create(:user)
-    Food.create(name: 'Apple', measurement_unit: 'grams', quantity: 1, price: 5, user:)
-    Food.create(name: 'Pineapple', measurement_unit: 'grams', quantity: 1, price: 1, user:)
-    Food.create(name: 'Chicken breasts', measurement_unit: 'units', quantity: 1, price: 2, user:)
-    sign_in user
-    visit '/foods'
-    expect(current_path).to eq(foods_path)
-    expect(page).to have_content('Sign out')
-    expect(page).to have_content('Edit profile')
-    expect(page).to have_content('Foods')
-    expect(page).to have_content('Recipes')
-    expect(page).to have_content('Shopping list')
-    expect(page).to have_content('Measurement unit')
-    expect(page).to have_content('Quantity')
-    expect(page).to have_content('Unit price')
-    expect(page).to have_content('Apple')
-    expect(page).to have_content('Pineapple')
-    expect(page).to have_content('Chicken breasts')
-    expect(page).to have_content('grams')
-    expect(page).to have_content('units')
-    expect(page).to have_content('1')
-    expect(page).to have_content('2')
-    expect(page).to_not have_content('3')
-    expect(page).to_not have_content('4')
-    expect(page).to have_content('5')
+RSpec.describe 'Foods page', type: :feature do
+  describe 'with FactoryBot login' do
+    before(:each) do
+      @user = FactoryBot.create(:user)
+      Food.create(name: 'Apple', measurement_unit: 'grams', quantity: 1, price: 5, user: @user)
+      Food.create(name: 'Pineapple', measurement_unit: 'grams', quantity: 1, price: 1, user: @user)
+      Food.create(name: 'Chicken breasts', measurement_unit: 'units', quantity: 1, price: 2, user: @user)
+    end
+    it 'will present foods page' do
+      sign_in @user
+      visit '/foods'
+      expect(current_path).to eq(foods_path)
+    end
+    it 'will have table header content' do
+      sign_in @user
+      visit foods_path
+      expect(page).to have_content('Food')
+      expect(page).to have_content('Measurement unit')
+      expect(page).to have_content('Quantity')
+      expect(page).to have_content('Unit price')
+    end
+    it 'will have table content' do
+      sign_in @user
+      visit foods_path
+      expect(page).to have_content('Apple')
+      expect(page).to have_content('Pineapple')
+      expect(page).to have_content('Chicken breasts')
+      expect(page).to have_content('grams')
+      expect(page).to have_content('units')
+      expect(page).to have_content('1')
+      expect(page).to have_content('2')
+      expect(page).to_not have_content('3')
+      expect(page).to_not have_content('4')
+      expect(page).to have_content('5')
+    end
+    it 'will have link to "Add food"' do
+      sign_in @user
+      visit foods_path
+      expect(page).to have_link('Add food')
+    end
+    it 'will have button "Delete"' do
+      sign_in @user
+      visit foods_path
+      expect(page).to have_button('Delete')
+    end
+    it 'will have classes for bootstrap buttons' do
+      sign_in @user
+      visit foods_path
+      expect(page).to have_css('.btn-danger')
+      expect(page).to have_css('.btn-sm')
+    end
   end
-end
 
-describe 'Get /general_shopping_list' do
-  it 'will present foods page' do
-    @user = FactoryBot.create(:user)
-    sign_in @user
-    visit '/general_shopping_list'
-    expect(page).to have_content('Shopping List')
-    expect(page).to have_content('Food')
-    expect(page).to have_content('Quantity')
-    expect(page).to have_content('Price')
-    expect(page).to have_content('Amount of food items to buy:')
-    expect(page).to have_content('Total value of food needed:')
-  end
-end
+# describe 'Get /general_shopping_list' do
+#   it 'will present foods page' do
+#     @user = FactoryBot.create(:user)
+#     sign_in @user
+#     visit '/general_shopping_list'
+#     expect(page).to have_content('Shopping List')
+#     expect(page).to have_content('Food')
+#     expect(page).to have_content('Quantity')
+#     expect(page).to have_content('Price')
+#     expect(page).to have_content('Amount of food items to buy:')
+#     expect(page).to have_content('Total value of food needed:')
+#   end
+# end
 
 
-feature 'User logs in and logs out' do
-  scenario 'with correct details' do
-    create(:user, email: 'recipe@test.com', password: 'password')
+# feature 'User logs in and logs out' do
+#   scenario 'with correct details' do
+#     create(:user, email: 'recipe@test.com', password: 'password')
 
-    visit '/foods'
-    expect(current_path).to eq(foods_path)
+#     visit '/foods'
+#     expect(current_path).to eq(foods_path)
 
-    click_link 'Recipe app'
-    expect(page).to have_content('Recipe app')
-    expect(page).to have_content('Sign up')
-    expect(page).to have_content('Sign in')
-    expect(current_path).to eq(root_path)
+#     click_link 'Recipe app'
+#     expect(page).to have_content('Recipe app')
+#     expect(page).to have_content('Sign up')
+#     expect(page).to have_content('Sign in')
+#     expect(current_path).to eq(root_path)
 
-    visit '/'
+#     visit '/'
 
-    click_link 'Sign in'
-    expect(page).to have_content('Recipe app')
-    expect(page).to have_content('Remember me')
-    expect(current_path).to eq(new_user_session_path)
+#     click_link 'Sign in'
+#     expect(page).to have_content('Recipe app')
+#     expect(page).to have_content('Remember me')
+#     expect(current_path).to eq(new_user_session_path)
 
     # login 'recipe@test.com', 'password'
 
@@ -117,11 +140,11 @@ feature 'User logs in and logs out' do
 
 #   scenario 'with valid details' do
 
-    visit '/'
+    # visit '/'
 
-    click_link 'Sign up'
-    expect(current_path).to eq(new_user_registration_path)
-    expect(page).to have_content('6 characters minimum')
+    # click_link 'Sign up'
+    # expect(current_path).to eq(new_user_registration_path)
+    # expect(page).to have_content('6 characters minimum')
     # fill_in 'email', with: 'recipe@test.com'
     # fill_in 'password', with: 'test-password'
     # fill_in 'password confirmation', with: 'test-password'
@@ -209,7 +232,7 @@ feature 'User logs in and logs out' do
 #       expect(page).to have_error_message "Password is too short (minimum is 8 characters)"
     # end
 
-  end
+  # end
 
   private
 
