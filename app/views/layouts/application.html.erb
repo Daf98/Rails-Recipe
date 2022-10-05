@@ -25,10 +25,5 @@
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
     <%= yield %>
-<% flash.each do |type, msg| %>
-        <div class="alert <%= type %>">
-          <%= msg %>
-        </div>
-      <% end %>
   </body>
 </html>
