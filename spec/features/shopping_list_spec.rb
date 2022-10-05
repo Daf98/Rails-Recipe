@@ -13,11 +13,13 @@ RSpec.describe 'Shopping list page', type: :feature do
       RecipeFood.create(food: pineapple, quantity: 10, recipe:)
       RecipeFood.create(food: chicken, quantity: 2, recipe:)
     end
+
     it 'will present general shopping list page' do
       sign_in @user
       visit '/general_shopping_list'
       expect(current_path).to eq(general_shopping_list_path)
     end
+
     it 'will present general shopping list page table header content' do
       sign_in @user
       visit general_shopping_list_path
@@ -25,12 +27,14 @@ RSpec.describe 'Shopping list page', type: :feature do
       expect(page).to have_content('Quantity')
       expect(page).to have_content('Price')
     end
+
     it 'will present general shopping list page table footer content' do
       sign_in @user
       visit general_shopping_list_path
       expect(page).to have_content('Amount of food items to buy: 29')
       expect(page).to have_content('Total value of food needed: $106')
     end
+
     it 'will present general shopping list page table content' do
       sign_in @user
       visit general_shopping_list_path
@@ -44,6 +48,7 @@ RSpec.describe 'Shopping list page', type: :feature do
       expect(page).to have_content('$95')
       expect(page).to have_content('$2')
     end
+
     it 'will present page css content' do
       sign_in @user
       visit general_shopping_list_path
