@@ -1,13 +1,20 @@
-<h1>Recipes</h1>
+<% total_price = 0 %>
+<h1>Public recipes</h1>
 <% @recipes.each do |recipe| %>
+<% recipe_foods = RecipeFood.includes(:food).where(recipe: recipe) %>
 <a href="recipes/<%= recipe.id %>">Recipe #<%= recipe.id %></a>
 <div>Name: <%= recipe.name %> by <%= recipe.user.name %></div>
 <div>Description: <%= recipe.description %></div>
 <div>Public? <%= recipe.public %></div>
-<% RecipeFood.where(recipe: recipe).each do | recipe_food | %>
-<div>Total food items: <%= recipe_food.quantity %></div>
-<div>Total price: $<%= recipe_food.quantity * recipe_food.food.price %></div>
+<div>Total food items:
+<%= recipe_foods.length %>
+</div>
+<% recipe_foods.each do |recipe_food| %>
+<% total_price += recipe_food.quantity * recipe_food.food.price %>
 <% end %>
+<div>Total price: $
+<%= total_price %>
+</div>
 <% if can? :destroy, recipe %>
     <%= button_to "REMOVE", "/recipes/#{recipe.id}", method: :delete %>
 <% end %>
