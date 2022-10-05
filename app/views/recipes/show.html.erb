@@ -19,8 +19,8 @@
    <% RecipeFood.includes(:food).where(recipe_id: @recipe.id).each do | recipe_food | %>
     <tr>
    <th><%= recipe_food.food.name %></th>
-   <th><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit %></th>
-   <th>$<%= recipe_food.food.price %></th>
+   <th><%= recipe_food.food.quantity %> <%= recipe_food.food.measurement_unit %></th>
+   <th>$<%= recipe_food.food.price * recipe_food.quantity %></th>
    <% if can? :destroy, @recipe %>
    <th><%= button_to 'Remove', recipe_recipe_food_path(@recipe.id), method: :delete, class: "btn btn-danger btn-sm" %></th>
    <% end %>
