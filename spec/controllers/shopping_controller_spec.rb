@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe ShoppingController, type: :controller do
   login_user
 
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     { name: 'username', email: 'email@user.com', password: 'password' }
-  }
+  end
 
   let(:valid_session) { {} }
 
