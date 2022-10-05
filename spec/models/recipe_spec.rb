@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Recipe, type: :model do
   before(:each) do
     @user = User.new(name: 'Daf', email: 'daf@gmail.com', password: '123456')
-    #   @food = @recipe.new(name: 'Chocolate', measurement_unit: 'grams', quantity: 20, price: 5, user:@user)
     @recipe = Recipe.new(name: 'Cake', description: 'Dessert', cooking_time: 3, preparation_time: 2, public: true,
                          user: @user)
   end
