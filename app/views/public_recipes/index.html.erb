@@ -10,7 +10,7 @@
 <%= recipe_foods.length %>
 </div>
 <% recipe_foods.each do |recipe_food| %>
-<% total_price += recipe_food.food.quantity * recipe_food.food.price %>
+<% total_price += recipe_food.quantity * recipe_food.food.price %>
 <% end %>
 <div>Total price: $<%= total_price %></div>
 </div>
