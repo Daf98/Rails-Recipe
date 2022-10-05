@@ -4,20 +4,20 @@ class RecipeFoodsController < ApplicationController
     @recipe_food = RecipeFood.new
   end
 
-  # def create
-  #   @recipe_food = Recipe.new(strong_params)
-  #   respond_to do |format|
-  #     format.html do
-  #       if @recipe.save
-  #         flash[:success] = 'Recipe saved successfully'
-  #         redirect_to recipes_url
-  #       else
-  #         flash.now[:error] = 'Error: Recipe could not be saved'
-  #         render :new, locals: { recipe: @recipe }
-  #       end
-  #     end
-  #   end
-  # end
+  def create
+    @recipe = Recipe.find(params[:recipe_id])
+    @recipe_foods = RecipeFood.new(strong_params)
+    @recipe_foods.recipe = @recipe
+    respond_to do |format|
+      if @recipe_foods.save
+        format.html { redirect_to recipe_url(@recipe), notice: 'Recipe Food was successfully created.' }
+        format.json { render :show, status: :created, location: @recipe_foods }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @recipe_foods.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def destroy
     @recipe = Recipe.find(params[:id])
@@ -25,5 +25,11 @@ class RecipeFoodsController < ApplicationController
     @recipe_food.destroy
     flash[:success] = 'The recipe food was successfully deleted.'
     redirect_to recipe_path
+  end
+
+  private
+
+  def strong_params
+    params.require(:recipe_food).permit(:food_id, :quantity, :recipe_id)
   end
 end
