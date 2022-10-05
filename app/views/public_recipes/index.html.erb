@@ -12,10 +12,5 @@
 <% recipe_foods.each do |recipe_food| %>
 <% total_price += recipe_food.quantity * recipe_food.food.price %>
 <% end %>
-<div>Total price: $
-<%= total_price %>
-</div>
-<% if can? :destroy, recipe %>
-    <%= button_to "REMOVE", "/recipes/#{recipe.id}", method: :delete %>
-<% end %>
+<div>Total price: $<%= total_price %></div>
 <% end %>
