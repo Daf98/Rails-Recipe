@@ -1,11 +1,5 @@
 require 'rails_helper'
 
-# t.bigint "user_id", null: false
-# t.string "name"
-# t.string "measurement_unit"
-# t.integer "price"
-# t.integer "quantity"
-
 RSpec.describe Food, type: :model do
   user = User.new(name: 'Anyone', email: 'email@email.com', password: '123456')
   food = Food.new(name: 'Food name', measurement_unit: 'grams', quantity: 2, price: 5, user:)
