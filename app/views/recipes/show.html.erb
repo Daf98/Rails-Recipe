@@ -1,5 +1,5 @@
 <% if can? :destroy, @recipe %>
-<%= link_to "Add food", new_food_path, class: "btn btn-secondary float-end" %>
+<%= link_to "Add ingredient", new_recipe_food_path, class: "btn btn-secondary float-end" %>
 <% end %>
 <%# Add public button %>
 <h3>Recipe #<%= @recipe.id %>
@@ -22,7 +22,7 @@
    <th><%= recipe_food.food.name %></th>
    <th><%= recipe_food.food.quantity %> <%= recipe_food.food.measurement_unit %></th>
    <th>$<%= recipe_food.food.price %></th>
-   <th>Remove</th>
+   <th><%= button_to 'Remove', recipe_food_path(recipe_food.id), method: :delete, class: "btn btn-danger btn-sm" %></th>
    </tr>
 </table>
 
