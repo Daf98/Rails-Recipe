@@ -1,3 +1,4 @@
+<h1>Add new recipe</h1>
 <%= form_with(model: @recipe) do |form| %>
       <% if @recipe.errors.any? %>
         <div style="color: red">
@@ -24,7 +25,7 @@
       </div>
 
       <div class="form-group">
-        <%= form.number_field :cooking_time, class: "form-control m-2", placeholder: "cooking_time" %>
+        <%= form.number_field :cooking_time, class: "form-control m-2", placeholder: "cooking time" %>
       </div>
 
       <div class="form-group">
