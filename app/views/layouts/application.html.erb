@@ -18,17 +18,11 @@
 
   <body>
     <%= render 'partials/header' %>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
+    <% flash.each do |type, msg| %>
+        <p class="alert  alert-success <%= type %>">
+          <%= msg %>
+        </p>
     <% end %>
     <%= yield %>
-<% flash.each do |type, msg| %>
-        <div class="alert <%= type %>">
-          <%= msg %>
-        </div>
-      <% end %>
   </body>
 </html>
