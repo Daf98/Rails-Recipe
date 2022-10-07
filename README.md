@@ -57,8 +57,10 @@ To run the tests:
 
 - Go to application folder;
 
-- run `rspec`.
+- run `rspec`
 
+## Live demo
+[Recipe App](https://glacial-basin-74137.herokuapp.com/)
 
 ## Authors
 
